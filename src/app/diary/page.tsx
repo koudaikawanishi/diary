@@ -69,7 +69,7 @@ export default function DiaryPage() {
         <ul className="space-y-4">
           {diaries.map((diary) => (
             <li key={diary.id} className="border rounded p-4 relative">
-              <p className="text-gray-700">{diary.content}</p>
+              <p className="text-gray-300 text-sm md:text-base">{diary.content}</p>
               <p className="text-sm text-gray-500 mt-2">
                 作成日: {new Date(diary.createdAt).toLocaleString()}
               </p>
