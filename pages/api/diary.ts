@@ -70,10 +70,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 res.setHeader('Allow',['GET','POST','PUT','DELETE']);
                 res.status(405).end(`Method ${req.method} Not Allowed`);
         }
-    } catch (error) {
+    } catch (error: unknown) {
         res.status(500).json({
             error: 'Internal server error'
         });
-        console.error(error);
+
+        if (error instanceof Error) {
+            console.error(error.message);
+        } else if (error) {
+            console.error(error);
+        } else {
+            console.error('Unknown error');
+        }
     }
 }
