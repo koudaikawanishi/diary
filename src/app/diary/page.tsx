@@ -20,12 +20,23 @@ export default function DiaryPage() {
     fetchDiaries()
   }, [])
 
-  const fetchDiaries = async () => {
+//   const fetchDiaries = async () => {
+//     const res = await fetch('/api/diary', { cache: 'no-store' })
+//     const data = await res.json()
+//     setDiaries(data)
+//     setLoading(false)
+//   }
+    const fetchDiaries = async () => {
     const res = await fetch('/api/diary', { cache: 'no-store' })
+    if (!res.ok) {
+        const text = await res.text()
+        console.error('API error:', text)
+        throw new Error('API error')
+    }
     const data = await res.json()
     setDiaries(data)
     setLoading(false)
-  }
+    }
 
   const deleteDiary = async (id: number) => {
     const confirmDelete = confirm('この日記を削除しますか？')
